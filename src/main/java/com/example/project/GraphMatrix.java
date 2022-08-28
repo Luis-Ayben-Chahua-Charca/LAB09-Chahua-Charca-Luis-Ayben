@@ -46,6 +46,16 @@ public class GraphMatrix implements Graph {
         }
     }
 
+    public boolean findEdge(int from, int to){
+        if (this.vertexDoesExist(from) && this.vertexDoesExist(to)) {
+            if(this.adjacency[from][to]==1){
+                return true;
+            }
+            
+        }
+        return false;
+    }
+
     public ArrayList<Integer> depthFirstSearch(int n) {
         return this.depthFirstSearch(n, new ArrayList<Integer>());
     }
@@ -78,9 +88,66 @@ public class GraphMatrix implements Graph {
     }
 
     public int countConnectedComponents() {
+        
 
-        return -1;
+        ArrayList<ArrayList<Integer>> conectados = new ArrayList<ArrayList<Integer>>();
+        ArrayList<Integer> faltantes = new ArrayList<Integer>();
+        
+        for (int i = 0;i<this.numVertices;i++){
+            faltantes.add(i);
+        }
+
+        do {
+            conexiones(conectados, faltantes);
+            
+        } while(faltantes.size() != 0);    
+        
+
+        
+        return conectados.size();
     }
+    //trabaja con una coleccion donde esta otra coleccion que guardan los vertices que estan conectados
+    public void conexiones(ArrayList<ArrayList<Integer>> conectados, ArrayList<Integer> faltantes){
+        
+        
+        //crea el array que guarda al grupo correspondiente.
+        ArrayList<Integer> grafoConexo = new ArrayList<Integer>();
+
+        grafoConexo.add(faltantes.get(0));
+        faltantes.remove(0);
+
+
+        //compara los datos faltantes con los que ya fueron emparejados
+        for(int i = 0; i<faltantes.size();i++){
+            if(comparar(grafoConexo,faltantes.get(i))){
+                
+                faltantes.remove(i);
+                i--;
+            }
+            
+        }
+
+        //añade el arraylist al contenedor, que devolvera la cantidad de arrays existentes.
+        conectados.add(grafoConexo);
+
+               
+    }
+    // se creo este método para actualizar el arraylist en cada iteración
+    public boolean comparar(ArrayList<Integer> grafo, int indice){
+
+        ArrayList<Integer> grafoConexo = grafo;
+
+        for (int i = 0; i<grafoConexo.size();i++){
+            if(findEdge(indice, grafoConexo.get(i))){
+                grafoConexo.add(indice);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    
 
     public static void main(String args[]) {
         GraphMatrix graph = new GraphMatrix(5);

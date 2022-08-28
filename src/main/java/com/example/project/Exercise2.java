@@ -12,7 +12,8 @@ public class Exercise2 {
         graph.addEdge(2, 5);
         graph.addEdge(2, 3);
         graph.addEdge(3, 4);
-        graph.addEdge(4, 1);        
+        graph.addEdge(4, 1);      
+		
         
 		System.out.println("Numero de vertices: " + graph.getNumVertices());
 		System.out.println("Numero de aristas: " + graph.getNumEdges());
@@ -21,7 +22,7 @@ public class Exercise2 {
 
 		System.out.println("Numero de vertices: " + graph.getNumVertices());
 		System.out.println("Numero de aristas: " + graph.getNumEdges());
-
+		
 	}
 
 	public void removeVertex(GraphAdjacentList graph, int vertex) {

@@ -90,7 +90,28 @@ public class GraphAdjacentList implements Graph {
     }
 
     public boolean removeVertex(int vertex){
-        return false;
+        Vertex vertexV = null;
+        for (Vertex v : vertices) {
+            if (vertex == v.data) { // verificando si 'vertex' existe
+                vertexV = v;
+                break;
+            }
+        }
+        if (vertexV == null) {
+            return false;
+        }
+
+        for(Vertex g : vertices){
+            removeEdge(g.data, vertexV.data);
+            
+        }
+
+        // se elimina del array principal el objeto vertex y se decrementa el numero de vertices.
+        this.vertices.remove(vertexV);
+        numVertices--;
+
+
+        return true;
     }
 
     public static void main(String args[]) {
